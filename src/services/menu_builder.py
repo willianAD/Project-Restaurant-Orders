@@ -15,15 +15,25 @@ class MenuBuilder:
     def make_order(self, dish_name: str) -> None:
         try:
             curr_dish = [
-                dish
-                for dish in self.menu_data.dishes
-                if dish.name == dish_name
+                dish for dish in self.menu_data.dishes if dish.name == dish_name
             ][0]
         except IndexError:
             raise ValueError("Dish does not exist")
 
         self.inventory.consume_recipe(curr_dish.recipe)
 
-    # Req 4
     def get_main_menu(self, restriction=None) -> List[Dict]:
-        pass
+        menu = []
+        for dish in self.menu_data.dishes:
+            menu_item = {
+                "dish_name": dish.name,
+                "ingredients": dish.get_ingredients(),
+                "price": dish.price,
+                "restrictions": dish.get_restrictions(),
+            }
+            if restriction is None:
+                menu.append(menu_item)
+            elif restriction not in dish.get_restrictions():
+                menu.append(menu_item)
+
+        return menu
