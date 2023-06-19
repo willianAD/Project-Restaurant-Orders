@@ -4,12 +4,13 @@ from src.models.ingredient import Ingredient
 
 
 class MenuData:
-    def __init__(self, source_path: str) -> None:
-        self.source_path = source_path
+    def __init__(self, source_path: str):
         self.dishes = set()
+        self.ingredients = set()
+        self.load_menu_data(source_path)
 
-    def load_menu_data(self):
-        with open(self.source_path, "r") as file:
+    def load_menu_data(self, source_path: str):
+        with open(source_path, newline="") as file:
             reader = csv.reader(file)
             next(reader)
 
@@ -19,13 +20,15 @@ class MenuData:
                 ingredient_name = row[2]
                 quantity = int(row[3])
 
+                ingredient = Ingredient(ingredient_name)
+                self.ingredients.add(ingredient)
+
                 plate = next(
                     (d for d in self.dishes if d.name == dish_name),
                     None,
                 )
                 if plate is None:
                     dish = Dish(dish_name, price)
-                    self.dishes.add(plate)
-                    ingredient = Ingredient(ingredient_name)
+                    self.dishes.add(dish)
 
-                    dish.add_ingredient_dependency(ingredient, quantity)
+                dish.add_ingredient_dependency(ingredient, quantity)
