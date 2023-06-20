@@ -31,11 +31,12 @@ class MenuBuilder:
                 "price": dish.price,
                 "restrictions": dish.get_restrictions(),
             }
-            if restriction is None:
+
+            ingredient_avaliable = self.inventory.check_recipe_availability(dish.recipe)
+
+            if restriction is None and ingredient_avaliable:
                 menu.append(menu_item)
-            elif restriction not in dish.get_restrictions():
-                # and self.inventory.check_recipe_availability(dish.recipe)
+            elif restriction not in dish.get_restrictions() and ingredient_avaliable:
                 menu.append(menu_item)
-                # self.inventory.consume_recipe(menu_item)
 
         return menu
