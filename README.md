@@ -24,7 +24,7 @@ A prática dos conhecimentos de orientação a objetos.
 
 ## Requisitos
 
-<img src="">
+<img src="https://raw.githubusercontent.com/willianAD/Project-Restaurant-Orders/main/image/Projeto%20Restaurant%20Orders.png">
 
 # Requisitos Obrigatórios
 
