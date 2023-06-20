@@ -34,6 +34,8 @@ class MenuBuilder:
             if restriction is None:
                 menu.append(menu_item)
             elif restriction not in dish.get_restrictions():
+                # and self.inventory.check_recipe_availability(dish.recipe)
                 menu.append(menu_item)
+                # self.inventory.consume_recipe(menu_item)
 
         return menu
